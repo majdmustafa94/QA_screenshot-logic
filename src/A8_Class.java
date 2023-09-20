@@ -22,6 +22,7 @@ public class A8_Class {
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://127.0.0.1:5500/index.html");
 		
+//		TakesScreenshot:
 		Date currentDate = new Date();
 		String newDate= currentDate.toString().replace(":", "-");
 		
@@ -30,7 +31,7 @@ public class A8_Class {
 		File Dest = new File(".//mypictures/"+newDate+".png");
 		FileUtils.copyFile(srcFile,Dest);
 				
-		
+//		Remove number of students from the list:
 		List <WebElement> students = driver.findElements(By.tagName("option"));
 		
 		int numOfstudents= students.size();
@@ -47,12 +48,7 @@ public class A8_Class {
 		
 		Assert.assertEquals(actualNumber, expectNumber);
 		
-
 		
-		
-		
-		
-	
 	}
 
 }
