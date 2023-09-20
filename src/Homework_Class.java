@@ -9,19 +9,30 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 
-public class A8_Class {
+public class Homework_Class {
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) throws IOException {
 		System.setProperty("webdriver.chrome.driver", "C:\\driver\\chromedriver\\chromedriver.exe");
-//		System.setProperty("webdriver.gecko.driver", "C:\driver\firefoxdriver\geckodriver.exe");
-//		System.setProperty("webdriver.edge.driver", "C:\\driver\\edgedriver\\msedgedriver.exe");
-		
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://127.0.0.1:5500/index.html");
+				
+//		Remove number of students from the list:
+		List <WebElement> students = driver.findElements(By.tagName("option"));
+				
+		for(int i=0; i<students.size(); i++) {
+			if (i % 2 == 0) {
+				students.get(i).click();
+				System.err.println("i will remove "+students.get(i).getText());
+				driver.findElement(By.xpath("//*[@id=\"remove\"]")).click();
+				}
+			else {
+				System.out.println("i will keep "+students.get(i).getText());
+			}
+		}
 		
-//		TakesScreenshot
+		driver.findElement(By.id("selectNow")).click();
+//		TakesScreenshot:
 		Date currentDate = new Date();
 		String newDate= currentDate.toString().replace(":", "-");
 		
@@ -29,26 +40,6 @@ public class A8_Class {
 		File srcFile = src.getScreenshotAs((OutputType.FILE));
 		File Dest = new File(".//mypictures/"+newDate+".png");
 		FileUtils.copyFile(srcFile,Dest);
-				
-		
-		List <WebElement> students = driver.findElements(By.tagName("option"));
-		
-		int numOfstudents= students.size();
-		
-		int removItem= 1;
-		
-		for(int i=0; i<removItem; i++) {
-			driver.findElement(By.xpath("//*[@id=\"remove\"]")).click();
-		}
-		
-		List <WebElement> stuAfterremove = driver.findElements(By.tagName("option"));
-		int actualNumber= stuAfterremove.size();
-		int expectNumber= numOfstudents - removItem;
-		
-		Assert.assertEquals(actualNumber, expectNumber);
-		
-	
-	
+			
 	}
-
 }
